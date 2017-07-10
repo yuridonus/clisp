@@ -144,6 +144,9 @@
   (edges->dot edges)
   (princ "}"))
 
+(defun shell (x)
+  (run-program "C:\\Git\\usr\\bin\\sh.exe" (list "-c" x) :output t))
+
 (defun dot->png (fname thunk)
   (with-open-file (*standard-output*
                     fname
@@ -151,9 +154,6 @@
                     :if-exists :supersede)
     (funcall thunk))
   (shell (concatenate 'string "dot -Tpng -O " fname)))
-
-(defun shell (x)
-  (run-program "C:\\Git\\usr\\bin\\sh.exe" (list "-c" x) :output t))
 
 (defun graph->png (fname nodes edges)
   (dot->png fname
